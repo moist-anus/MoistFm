@@ -15,16 +15,8 @@ namespace MoistFm.Models
 		{
 			Name = name;
 			Artist = new LfmArtist(artist, service);
-			service.AlbumContext = new LfmAlbumContext(Name, Artist.Name);
+			service.AlbumContext = new LfmAlbumContext(Name, Artist.Name, service.ApiKey);
 			Context = service.AlbumContext;
-		}
-
-		internal LfmAlbum(string name, string artist)
-			: this()
-		{
-			Name = name;
-			Artist = new LfmArtist(artist);
-			Context = new LfmAlbumContext(Name, Artist.Name);
 		}
 
 		public LfmAlbum()

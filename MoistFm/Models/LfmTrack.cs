@@ -15,16 +15,8 @@ namespace MoistFm.Models
 		{
 			Name = name;
 			Artist = new LfmArtist(artist);
-			service.TrackContext = new LfmTrackContext(Name, Artist.Name);
+			service.TrackContext = new LfmTrackContext(Name, Artist.Name, service.ApiKey);
 			Context = service.TrackContext;
-		}
-
-		internal LfmTrack(string name, string artist)
-			: this()
-		{
-			Name = name;
-			Artist = new LfmArtist(artist);
-			Context = new LfmTrackContext(Name, Artist.Name);
 		}
 
 		public LfmTrack()

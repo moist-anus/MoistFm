@@ -13,6 +13,10 @@ namespace MoistFm
 			: this()
 		{
 			ApiKey = apiKey;
+			UserContext = new LfmUserContext(ApiKey);
+			ArtistContext = new LfmArtistContext(ApiKey);
+			AlbumContext = new LfmAlbumContext(ApiKey);
+			TrackContext = new LfmTrackContext(ApiKey);
 		}
 
 		public LfmService()
@@ -20,12 +24,12 @@ namespace MoistFm
 
 		public string ApiKey { get; set; } = string.Empty;
 
-		public LfmUserContext UserContext { get; internal set; } = new LfmUserContext();
+		public LfmUserContext UserContext { get; internal set; }
 
-		public LfmArtistContext ArtistContext { get; internal set; } = new LfmArtistContext();
+		public LfmArtistContext ArtistContext { get; internal set; }
 
-		public LfmAlbumContext AlbumContext { get; internal set; } = new LfmAlbumContext();
+		public LfmAlbumContext AlbumContext { get; internal set; }
 
-		public LfmTrackContext TrackContext { get; internal set; } = new LfmTrackContext();
+		public LfmTrackContext TrackContext { get; internal set; }
 	}
 }

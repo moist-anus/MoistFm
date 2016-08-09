@@ -14,17 +14,9 @@ namespace MoistFm.Models
 			: this()
 		{
 			Name = name;
-			service.UserContext = new LfmUserContext(Name);
+			service.UserContext = new LfmUserContext(Name, service.ApiKey);
 			Context = service.UserContext;
 		}
-
-		internal LfmUser(string name)
-			: this()
-		{
-			Name = name;
-			Context = new LfmUserContext(Name);
-		}
-
 
 		public LfmUser()
 		{ }

@@ -10,13 +10,15 @@ namespace MoistFm.Service
 {
 	public class LfmAlbumContext : LfmContext
 	{
-		public LfmAlbumContext(string name, string artist)
+		public LfmAlbumContext(string name, string artist, string apiKey)
+			: this(apiKey)
 		{
 			Name = name;
 			Artist = artist;
 		}
 
-		public LfmAlbumContext()
+		public LfmAlbumContext(string apiKey)
+			: base(apiKey)
 		{ }
 
 		public override string RequestUrl { get { return $"{RequestBase}&artist={Artist}&album={Name}"; } }

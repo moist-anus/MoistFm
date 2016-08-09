@@ -10,13 +10,15 @@ namespace MoistFm.Service
 {
 	public class LfmTrackContext : LfmContext
 	{
-		public LfmTrackContext(string name, string artist)
+		public LfmTrackContext(string name, string artist, string apiKey)
+			: this(apiKey)
 		{
 			Name = name;
 			Artist = artist;
 		}
 
-		public LfmTrackContext()
+		public LfmTrackContext(string apiKey)
+			: base(apiKey)
 		{ }
 
 		public override string RequestUrl { get { return $"{RequestBase}&track={Name}&artist={Artist}"; } }

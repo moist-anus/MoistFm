@@ -11,16 +11,23 @@ namespace MoistFm.Service
 {
 	public class LfmUserContext : LfmContext
 	{
-		public LfmUserContext(string name)
-			: this()
+		public LfmUserContext(string name, string apiKey)
+			: this(apiKey)
 		{
 			Name = name;
 		}
 
-		public LfmUserContext()
+		public LfmUserContext(string apiKey)
+			: base(apiKey)
 		{ }
 
-		public override string RequestUrl { get { return $"{RequestBase}&user={Name}"; } }
+		public override string RequestUrl
+		{
+			get
+			{
+				return $"{RequestBase}&user={Name}";
+			}
+		}
 
 		public string Name { get; set; } = string.Empty;
 
