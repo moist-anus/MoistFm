@@ -1,0 +1,8 @@
+C:\git\MoistFm\MoistFm\MoistFm.Test\bin\Debug\MoistFm.Test.exe.config
+C:\git\MoistFm\MoistFm\MoistFm.Test\bin\Debug\MoistFm.Test.exe
+C:\git\MoistFm\MoistFm\MoistFm.Test\bin\Debug\MoistFm.Test.pdb
+C:\git\MoistFm\MoistFm\MoistFm.Test\bin\Debug\MoistFm.dll
+C:\git\MoistFm\MoistFm\MoistFm.Test\bin\Debug\MoistFm.pdb
+C:\git\MoistFm\MoistFm\MoistFm.Test\obj\Debug\MoistFm.Test.csprojResolveAssemblyReference.cache
+C:\git\MoistFm\MoistFm\MoistFm.Test\obj\Debug\MoistFm.Test.exe
+C:\git\MoistFm\MoistFm\MoistFm.Test\obj\Debug\MoistFm.Test.pdb
