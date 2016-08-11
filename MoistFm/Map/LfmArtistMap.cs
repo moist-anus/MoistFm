@@ -15,6 +15,21 @@ namespace MoistFm.Map
 			return new LfmArtist(name);
 		}
 
+		public void Map(LfmArtist from, LfmArtist to)
+		{
+			to.Name = string.IsNullOrEmpty(from.Name) ? to.Name : from.Name;
+			to.Playcount = from.Playcount == 0 ? to.Playcount : from.Playcount;
+			to.MbId = from.MbId == default(Guid) ? to.MbId : from.MbId;
+			to.Url = string.IsNullOrEmpty(from.Url) ? to.Url : from.Url;
+			to.Images = from.Images.Count() == 0 ? to.Images : from.Images;
+			to.Streamable = from.Streamable;
+			to.OnTour = from.OnTour;
+			to.Stats = from.Stats.Listeners == 0 || from.Stats.Playcount == 0 ? to.Stats : from.Stats;
+			to.Similar = from.Similar.Count() == 0 ? to.Similar : from.Similar;
+			to.TopTags = from.TopTags.Count() == 0 ? to.TopTags : from.TopTags;
+			to.Bio = string.IsNullOrEmpty(from.Bio.Summary) ? to.Bio : from.Bio;
+		}
+
 		public override LfmArtist Map(XmlNode from)
 		{
 			var nameNode = from.SelectSingleNode("name");
@@ -38,7 +53,7 @@ namespace MoistFm.Map
 			if (!IsNullOrEmpty(onTourNode)) artist.OnTour = string.Equals(onTourNode.InnerText, "1", StringComparison.OrdinalIgnoreCase);
 			if (!IsNullOrEmpty(statsNode)) artist.Stats = new LfmStatsMap().Map(statsNode);
 			if (!IsNullOrEmpty(similarNodes)) artist.Similar = Map(similarNodes);
-			if (!IsNullOrEmpty(tagNodes)) artist.Tags = new LfmTagMap().Map(tagNodes);
+			if (!IsNullOrEmpty(tagNodes)) artist.TopTags = new LfmTagMap().Map(tagNodes);
 			if (!IsNullOrEmpty(bioNode)) artist.Bio = new LfmBioMap().Map(bioNode);
 			artist.Name = !IsNullOrEmpty(nameNode) ? nameNode.InnerText : from.InnerText;
 			artist.Url = GetText(urlNode);

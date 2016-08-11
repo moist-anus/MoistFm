@@ -10,6 +10,22 @@ namespace MoistFm.Map
 {
 	internal class LfmUserMap : LfmMap<LfmUser>
 	{
+		public void Map(LfmUser from, LfmUser to)
+		{
+			to.Id = from.Id == 0 ? to.Id : from.Id;
+			to.Name = string.IsNullOrEmpty(from.Name) ? to.Name : from.Name;
+			to.RealName = string.IsNullOrEmpty(from.RealName) ? to.RealName : from.RealName;
+			to.Images = from.Images.Count() == 0 ? to.Images : from.Images;
+			to.Url = string.IsNullOrEmpty(from.Url) ? to.Url : from.Url;
+			to.Country = string.IsNullOrEmpty(from.Country) ? to.Country : from.Country;
+			to.Age = from.Age == 0 ? to.Age : from.Age;
+			to.Gender = string.IsNullOrEmpty(from.Gender) ? to.Gender : from.Gender;
+			to.Playcount = from.Playcount == 0 ? to.Playcount : from.Playcount;
+			to.Playlists = from.Playlists == 0 ? to.Playlists : from.Playlists;
+			to.Registered = from.Registered.Date == default(DateTime) ? to.Registered : from.Registered;
+			to.Type = string.IsNullOrEmpty(from.Type) ? to.Type : from.Type;
+		}
+
 		public override LfmUser Map(XmlNode from)
 		{
 			var idNode = from.SelectSingleNode("id");

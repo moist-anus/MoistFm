@@ -10,14 +10,14 @@ namespace MoistFm.Service
 {
 	public class LfmArtistContext : LfmContext
 	{
-		public LfmArtistContext(string name, string apiKey)
-			: this(apiKey)
+		public LfmArtistContext(string name, LfmService service)
+			: this(service)
 		{
 			Name = name;
 		}
 
-		public LfmArtistContext(string apiKey)
-			: base(apiKey)
+		public LfmArtistContext(LfmService service)
+			: base(service)
 		{ }
 
 		public override string RequestUrl { get { return $"{RequestBase}&artist={Name}"; } }
@@ -32,12 +32,28 @@ namespace MoistFm.Service
 
 		private LfmAlbumMap AlbumMap { get; set; } = new LfmAlbumMap();
 
+		public void GetInfo(LfmArtist mapTo)
+		{
+			var artist = GetInfo();
+			ArtistMap.Map(artist, mapTo);
+		}
+
 		public LfmArtist GetInfo()
 		{
 			Method = "artist.getinfo";
 
 			ProcessRequest();
-			return ArtistMap.Map(Response.SelectSingleNode("/lfm/artist"));
+			var artist = ArtistMap.Map(Response.SelectSingleNode("/lfm/artist"));
+			artist.Service = Service;
+			artist.Service.ArtistContext.Name = artist.Name;
+
+			return artist;
+		}
+
+		public void GetTopTags(LfmArtist mapTo)
+		{
+			var tags = GetTopTags();
+
 		}
 
 		public IEnumerable<LfmTag> GetTopTags()
@@ -69,6 +85,8 @@ namespace MoistFm.Service
 			Method = "artist.getTopAlbums";
 
 			ProcessRequest();
+
+			
 			return AlbumMap.Map(Response.SelectNodes("/lfm/topalbums/album"));
 		}
 	}

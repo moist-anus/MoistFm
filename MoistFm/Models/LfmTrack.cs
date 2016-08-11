@@ -14,13 +14,15 @@ namespace MoistFm.Models
 			: this()
 		{
 			Name = name;
-			Artist = new LfmArtist(artist);
-			service.TrackContext = new LfmTrackContext(Name, Artist.Name, service.ApiKey);
-			Context = service.TrackContext;
+			Service = service;
+			Artist = new LfmArtist(artist, Service);
+			Service.TrackContext = new LfmTrackContext(Name, Artist.Name, Service);
 		}
 
 		public LfmTrack()
 		{	}
+
+		internal LfmService Service { get; set; }
 
 		public string Name { get; set; } = string.Empty;
 
@@ -29,6 +31,8 @@ namespace MoistFm.Models
 		public string Url { get; set; } = string.Empty;
 
 		public int Duration { get; set; } = 0;
+
+		public TimeSpan Length { get { return new TimeSpan(0, 0, Duration / 1000); } }
 
 		public LfmStreamable Streamable { get; set; } = new LfmStreamable();
 
@@ -48,11 +52,9 @@ namespace MoistFm.Models
 
 		public bool NowPlaying { get; set; } = false;
 
-		private LfmTrackContext Context { get; set; }
-
 		public LfmTrack GetInfo()
 		{
-			return Context.GetInfo();
+			return Service.TrackContext.GetInfo();
 		}
 	}
 }

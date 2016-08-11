@@ -10,6 +10,19 @@ namespace MoistFm.Map
 {
 	public class LfmAlbumMap : LfmMap<LfmAlbum>
 	{
+		public void Map(LfmAlbum from, LfmAlbum to)
+		{
+			to.Name = string.IsNullOrEmpty(from.Name) ? to.Name : from.Name;
+			to.MbId = from.MbId == default(Guid) ? to.MbId : from.MbId;
+			to.Url = string.IsNullOrEmpty(from.Url) ? to.Url : from.Url;
+			to.Artist = string.IsNullOrEmpty(from.Artist.Name) ? to.Artist : from.Artist;
+			to.Images = from.Images.Count() == 0 ? to.Images : from.Images;
+			to.Stats = from.Stats.Playcount == 0 || from.Stats.Listeners == 0 ? to.Stats : from.Stats;
+			to.Tracks = from.Tracks.Count() == 0 ? to.Tracks : from.Tracks;
+			to.Tags = from.Tags.Count() == 0 ? to.Tags : from.Tags;
+			to.Wiki = string.IsNullOrEmpty(from.Wiki.Summary) ? to.Wiki : from.Wiki;
+		}
+
 		public override LfmAlbum Map(XmlNode from)
 		{
 			var nameNode = from.SelectSingleNode("name");

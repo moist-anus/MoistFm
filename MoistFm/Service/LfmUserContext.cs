@@ -11,23 +11,17 @@ namespace MoistFm.Service
 {
 	public class LfmUserContext : LfmContext
 	{
-		public LfmUserContext(string name, string apiKey)
-			: this(apiKey)
+		public LfmUserContext(string name, LfmService service)
+			: this(service)
 		{
 			Name = name;
 		}
 
-		public LfmUserContext(string apiKey)
-			: base(apiKey)
+		public LfmUserContext(LfmService service)
+			: base(service)
 		{ }
 
-		public override string RequestUrl
-		{
-			get
-			{
-				return $"{RequestBase}&user={Name}";
-			}
-		}
+		public override string RequestUrl { get { return $"{RequestBase}&user={Name}"; } }
 
 		public string Name { get; set; } = string.Empty;
 
@@ -55,6 +49,12 @@ namespace MoistFm.Service
 
 			ProcessRequest();
 			return UserMap.Map(Response.SelectNodes("/lfm/friends/user"));
+		}
+
+		public void GetInfo(LfmUser mapTo)
+		{
+			var user = GetInfo();
+			UserMap.Map(user, mapTo);
 		}
 
 		public LfmUser GetInfo()
@@ -129,7 +129,7 @@ namespace MoistFm.Service
 			return ArtistMap.Map(Response.SelectNodes("/lfm/weeklyartistchart/artist"));
 		}
 
-		public IEnumerable<LfmTrack> GetWeeklyTrackChart()
+		public IEnumerable<LfmTrack> GetWeeklyTrackChart() 
 		{
 			Method = "user.getweeklytrackchart";
 
@@ -144,7 +144,19 @@ namespace MoistFm.Service
 
 			var nowPlayingNode = Response.SelectSingleNode("/lfm/recenttracks/track[@nowplaying='true']");
 
-			return nowPlayingNode == null ? new LfmTrack() : TrackMap.Map(nowPlayingNode);
+			if (nowPlayingNode == null)
+			{
+				return new LfmTrack();
+			}
+			else
+			{
+				var nowPlaying = TrackMap.Map(nowPlayingNode);
+				nowPlaying.Service = Service;
+				nowPlaying.Service.TrackContext.Name = nowPlaying.Name;
+				nowPlaying.Service.TrackContext.Artist = nowPlaying.Artist.Name;
+
+				return nowPlaying;
+			}
 		}
 	}
 }

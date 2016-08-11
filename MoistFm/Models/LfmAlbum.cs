@@ -14,9 +14,9 @@ namespace MoistFm.Models
 			: this()
 		{
 			Name = name;
-			Artist = new LfmArtist(artist, service);
-			service.AlbumContext = new LfmAlbumContext(Name, Artist.Name, service.ApiKey);
-			Context = service.AlbumContext;
+			Service = service;
+			Artist = new LfmArtist(artist, Service);
+			service.AlbumContext = new LfmAlbumContext(Name, Artist.Name, Service);
 		}
 
 		public LfmAlbum()
@@ -40,11 +40,11 @@ namespace MoistFm.Models
 
 		public LfmBio Wiki { get; set; } = new LfmBio();
 
-		private LfmAlbumContext Context { get; set; }
+		private LfmService Service { get; set; }
 
-		public LfmAlbum GetInfo()
+		public void GetInfo()
 		{
-			return Context.GetInfo();
+			Service.AlbumContext.GetInfo(this);
 		}
 	}
 }

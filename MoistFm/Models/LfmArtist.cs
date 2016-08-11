@@ -13,15 +13,14 @@ namespace MoistFm.Models
 			: this()
 		{
 			Name = name;
-			service.ArtistContext = new LfmArtistContext(Name);
-			Context = service.ArtistContext;
+			Service = service;
+			Service.ArtistContext = new LfmArtistContext(Name, Service);
 		}
 
 		internal LfmArtist(string name)
 			: this()
 		{
 			Name = name;
-			Context = new LfmArtistContext(Name);
 		}
 
 		public LfmArtist()
@@ -45,35 +44,39 @@ namespace MoistFm.Models
 
 		public IEnumerable<LfmArtist> Similar { get; set; } = new List<LfmArtist>();
 
-		public IEnumerable<LfmTag> Tags { get; set; } = new List<LfmTag>();
+		public IEnumerable<LfmTag> TopTags { get; set; } = new List<LfmTag>();
+
+		public IEnumerable<LfmTrack> TopTracks { get; set; } = new List<LfmTrack>();
+
+		public IEnumerable<LfmAlbum> TopAlbums { get; set; } = new List<LfmAlbum>();
 
 		public LfmBio Bio { get; set; } = new LfmBio();
 
-		private LfmArtistContext Context { get; set; }
+		public LfmService Service { get; set; }
 
-		public LfmArtist GetInfo()
+		public void GetInfo()
 		{
-			return Context.GetInfo();
+			Service.ArtistContext.GetInfo(this);
 		}
 
-		public IEnumerable<LfmTag> GetTopTags()
+		public void GetTopTags()
 		{
-			return Context.GetTopTags();
+			TopTags = Service.ArtistContext.GetTopTags();
 		}
 
-		public IEnumerable<LfmArtist> GetSimilar()
+		public void GetSimilar()
 		{
-			return Context.GetSimilar();
+			Similar = Service.ArtistContext.GetSimilar();
 		}
 
-		public IEnumerable<LfmTrack> GetTopTracks()
+		public void GetTopTracks()
 		{
-			return Context.GetTopTracks();
+			TopTracks = Service.ArtistContext.GetTopTracks();
 		}
 
-		public IEnumerable<LfmAlbum> GetTopAlbums()
+		public void GetTopAlbums()
 		{
-			return Context.GetTopAlbums();
+			TopAlbums = Service.ArtistContext.GetTopAlbums();
 		}
 	}
 }

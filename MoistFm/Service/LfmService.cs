@@ -13,10 +13,10 @@ namespace MoistFm
 			: this()
 		{
 			ApiKey = apiKey;
-			UserContext = new LfmUserContext(ApiKey);
-			ArtistContext = new LfmArtistContext(ApiKey);
-			AlbumContext = new LfmAlbumContext(ApiKey);
-			TrackContext = new LfmTrackContext(ApiKey);
+			UserContext = new LfmUserContext(this);
+			ArtistContext = new LfmArtistContext(this);
+			AlbumContext = new LfmAlbumContext(this);
+			TrackContext = new LfmTrackContext(this);
 		}
 
 		public LfmService()

@@ -10,15 +10,15 @@ namespace MoistFm.Service
 {
 	public class LfmAlbumContext : LfmContext
 	{
-		public LfmAlbumContext(string name, string artist, string apiKey)
-			: this(apiKey)
+		public LfmAlbumContext(string name, string artist, LfmService service)
+			: this(service)
 		{
 			Name = name;
 			Artist = artist;
 		}
 
-		public LfmAlbumContext(string apiKey)
-			: base(apiKey)
+		public LfmAlbumContext(LfmService service)
+			: base(service)
 		{ }
 
 		public override string RequestUrl { get { return $"{RequestBase}&artist={Artist}&album={Name}"; } }
@@ -28,6 +28,12 @@ namespace MoistFm.Service
 		public string Artist { get; set; } = string.Empty;
 
 		private LfmAlbumMap AlbumMap { get; set; } = new LfmAlbumMap();
+
+		public void GetInfo(LfmAlbum mapTo)
+		{
+			var album = GetInfo();
+			AlbumMap.Map(album, mapTo);
+		}
 
 		public LfmAlbum GetInfo()
 		{

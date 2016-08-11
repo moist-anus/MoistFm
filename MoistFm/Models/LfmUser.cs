@@ -14,8 +14,8 @@ namespace MoistFm.Models
 			: this()
 		{
 			Name = name;
-			service.UserContext = new LfmUserContext(Name, service.ApiKey);
-			Context = service.UserContext;
+			Service = service;
+			service.UserContext = new LfmUserContext(Name, Service);
 		}
 
 		public LfmUser()
@@ -49,71 +49,95 @@ namespace MoistFm.Models
 
 		public string Type { get; set; } = string.Empty;
 
-		private LfmUserContext Context { get; set; }
+		public IEnumerable<LfmUser> Friends { get; set; } = new List<LfmUser>();
 
-		public LfmUser GetInfo()
+		public IEnumerable<LfmArtist> TopArtists { get; set; } = new List<LfmArtist>();
+
+		public IEnumerable<LfmTag> TopTags { get; set; } = new List<LfmTag>();
+
+		public IEnumerable<LfmTrack> LovedTracks { get; set; } = new List<LfmTrack>();
+
+		public IEnumerable<LfmTrack> ArtistTracks { get; set; } = new List<LfmTrack>();
+
+		public IEnumerable<LfmAlbum> TopAlbums { get; set; } = new List<LfmAlbum>();
+
+		public IEnumerable<LfmTrack> RecentTracks { get; set; } = new List<LfmTrack>();
+
+		public IEnumerable<LfmTrack> TopTracks { get; set; } = new List<LfmTrack>();
+
+		public IEnumerable<LfmAlbum> WeeklyAlbumChart { get; set; } = new List<LfmAlbum>();
+
+		public IEnumerable<LfmArtist> WeeklyArtistChart { get; set; } = new List<LfmArtist>();
+
+		public IEnumerable<LfmTrack> WeeklyTrackChart { get; set; } = new List<LfmTrack>();
+
+		public LfmTrack NowPlaying { get; set; } = new LfmTrack();
+
+		private LfmService Service { get; set; }
+
+		public void GetInfo()
 		{
-			return Context.GetInfo();
+			Service.UserContext.GetInfo(this);
 		}
 
-		public IEnumerable<LfmUser> GetFriends()
+		public void GetFriends()
 		{
-			return Context.GetFriends();
+			Friends = Service.UserContext.GetFriends();
 		}
 
-		public IEnumerable<LfmArtist> GetTopArtists()
+		public void GetTopArtists()
 		{
-			return Context.GetTopArtists();
+			TopArtists = Service.UserContext.GetTopArtists();
 		}
 
-		public IEnumerable<LfmTag> GetTopTags()
+		public void GetTopTags()
 		{
-			return Context.GetTopTags();
+			TopTags = Service.UserContext.GetTopTags();
 		}
 
-		public IEnumerable<LfmTrack> GetLovedTracks()
+		public void GetLovedTracks()
 		{
-			return Context.GetLovedTracks();
+			LovedTracks = Service.UserContext.GetLovedTracks();
 		}
 
-		public IEnumerable<LfmTrack> GetArtistTracks(string artist)
+		public void GetArtistTracks(string artist)
 		{
-			return Context.GetArtistTracks(artist);
+			ArtistTracks = Service.UserContext.GetArtistTracks(artist);
 		}
 
-		public IEnumerable<LfmTrack> GetRecentTracks()
+		public void GetRecentTracks()
 		{
-			return Context.GetRecentTracks();
+			RecentTracks = Service.UserContext.GetRecentTracks();
 		}
 
-		public IEnumerable<LfmAlbum> GetTopAlbums()
+		public void GetTopAlbums()
 		{
-			return Context.GetTopAlbums();
+			TopAlbums = Service.UserContext.GetTopAlbums();
 		}
 
-		public IEnumerable<LfmTrack> GetTopTracks()
+		public void GetTopTracks()
 		{
-			return Context.GetTopTracks();
+			TopTracks =  Service.UserContext.GetTopTracks();
 		}
 
-		public IEnumerable<LfmAlbum> GetWeeklyAlbumChart()
+		public void GetWeeklyAlbumChart()
 		{
-			return Context.GetWeeklyAlbumChart();
+			WeeklyAlbumChart = Service.UserContext.GetWeeklyAlbumChart();
 		}
 
-		public IEnumerable<LfmArtist> GetWeeklyArtistChart()
+		public void GetWeeklyArtistChart()
 		{
-			return Context.GetWeeklyArtistChart();
+			WeeklyArtistChart = Service.UserContext.GetWeeklyArtistChart();
 		}
 
-		public IEnumerable<LfmTrack> GetWeeklyTrackChart()
+		public void GetWeeklyTrackChart()
 		{
-			return Context.GetWeeklyTrackChart();
+			WeeklyTrackChart = Service.UserContext.GetWeeklyTrackChart();
 		}
 
-		public LfmTrack GetNowPlaying()
+		public void GetNowPlaying()
 		{
-			return Context.GetNowPlaying();
+			NowPlaying = Service.UserContext.GetNowPlaying();
 		}
 	}
 }

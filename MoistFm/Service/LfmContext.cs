@@ -12,15 +12,14 @@ namespace MoistFm.Service
 {
 	public abstract class LfmContext
 	{
-		public LfmContext(string apiKey)
+		public LfmContext(LfmService service)
 		{
-			ApiKey = apiKey;
+			Service = service;
 		}
 
 		public abstract string RequestUrl { get; }
 
-		//public static string ApiKey { get; set; } = "14e266cd3ede4e2eeb1a9fbd018b7eac";
-		public string ApiKey { get; set; }
+		public LfmService Service { get; set; }
 
 		public string UrlBase { get { return "http://ws.audioscrobbler.com/2.0/"; } }
 
@@ -28,13 +27,7 @@ namespace MoistFm.Service
 
 		public string Method { get; set; } = string.Empty;
 
-		protected string RequestBase
-		{
-			get
-			{
-				return $"{UrlBase}?method={Method}&api_key={ApiKey}";
-			}
-		}
+		protected string RequestBase { get { return $"{UrlBase}?method={Method}&api_key={Service.ApiKey}"; } }
 
 		protected void ProcessRequest(string url)
 		{

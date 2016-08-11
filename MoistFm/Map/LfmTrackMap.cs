@@ -18,6 +18,7 @@ namespace MoistFm.Map
 			var nameNode = from.SelectSingleNode("name");
 			var mbIdNode = from.SelectSingleNode("mbid");
 			var urlNode = from.SelectSingleNode("url");
+			var durationNode = from.SelectSingleNode("duration");
 			var dateNode = from.SelectSingleNode("date");
 			var imageNodes = from.SelectNodes("image");
 			var streamableNode = from.SelectSingleNode("streamable");
@@ -47,6 +48,7 @@ namespace MoistFm.Map
 			if (!IsNullOrEmpty(streamableNode)) track.Streamable = new LfmStreamableMap().Map(from.SelectSingleNode("streamable"));
 			if (!IsNullOrEmpty(nowPlayingAttribute)) track.NowPlaying = Convert.ToBoolean(nowPlayingAttribute.Value);
 			track.Url = GetText(urlNode);
+			if (!IsNullOrEmpty(durationNode)) track.Duration = Convert.ToInt32(durationNode.InnerText);
 
 			return track;
 		}
