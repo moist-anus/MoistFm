@@ -29,12 +29,23 @@ namespace MoistFm.Service
 
 		private LfmTrackMap TrackMap { get; set; } = new LfmTrackMap();
 
+		public void GetInfo(LfmTrack mapTo)
+		{
+			var track = GetInfo();
+			TrackMap.Map(track, mapTo);
+		}
+
 		public LfmTrack GetInfo()
 		{
 			Method = "track.getInfo";
 
 			ProcessRequest();
-			return TrackMap.Map(Response.SelectSingleNode("/lfm/track"));
+
+			var track =  TrackMap.Map(Response.SelectSingleNode("/lfm/track"));
+			track.Service = Service;
+			track.Service.TrackContext.Name = track.Name;
+
+			return track;
 		}
 	}
 }

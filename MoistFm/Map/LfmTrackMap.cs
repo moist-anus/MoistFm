@@ -13,6 +13,22 @@ namespace MoistFm.Map
 		public LfmTrackMap()
 		{ }
 
+		public void Map(LfmTrack from, LfmTrack to)
+		{
+			to.Name = string.IsNullOrEmpty(from.Name) ? to.Name : from.Name;
+			to.MbId = from.MbId == default(Guid) ? to.MbId : from.MbId;
+			to.Url = string.IsNullOrEmpty(from.Url) ? to.Url : from.Url;
+			to.Duration = from.Duration == 0 ? to.Duration : from.Duration;
+			to.Stats = from.Stats.Listeners == 0 || from.Stats.Playcount == 0 ? to.Stats : from.Stats;
+			to.Album = string.IsNullOrEmpty(from.Album.Name) ? to.Album : from.Album;
+			to.Tags = from.Tags.Count() == 0 ? to.Tags : from.Tags;
+			to.Wiki = string.IsNullOrEmpty(from.Wiki.Summary) ? to.Wiki : from.Wiki;
+			to.Date = from.Date == default(DateTime) ? to.Date : from.Date;
+			to.Images = from.Images.Count() == 0 ? to.Images : from.Images;
+
+			to.Service = from.Service;
+		}
+
 		public override LfmTrack Map(XmlNode from)
 		{
 			var nameNode = from.SelectSingleNode("name");

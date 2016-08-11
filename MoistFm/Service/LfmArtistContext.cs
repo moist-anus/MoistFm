@@ -50,12 +50,6 @@ namespace MoistFm.Service
 			return artist;
 		}
 
-		public void GetTopTags(LfmArtist mapTo)
-		{
-			var tags = GetTopTags();
-
-		}
-
 		public IEnumerable<LfmTag> GetTopTags()
 		{
 			Method = "artist.getTopTags";
@@ -85,8 +79,6 @@ namespace MoistFm.Service
 			Method = "artist.getTopAlbums";
 
 			ProcessRequest();
-
-			
 			return AlbumMap.Map(Response.SelectNodes("/lfm/topalbums/album"));
 		}
 	}

@@ -52,9 +52,9 @@ namespace MoistFm.Models
 
 		public bool NowPlaying { get; set; } = false;
 
-		public LfmTrack GetInfo()
+		public void GetInfo()
 		{
-			return Service.TrackContext.GetInfo();
+			Service.TrackContext.GetInfo(this);
 		}
 	}
 }

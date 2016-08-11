@@ -40,7 +40,7 @@ namespace MoistFm.Models
 
 		public LfmBio Wiki { get; set; } = new LfmBio();
 
-		private LfmService Service { get; set; }
+		internal LfmService Service { get; set; }
 
 		public void GetInfo()
 		{

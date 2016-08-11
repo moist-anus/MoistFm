@@ -13,15 +13,10 @@ namespace MoistFm.Test
 		{
 			var service = new LfmService("14e266cd3ede4e2eeb1a9fbd018b7eac");
 			var user = new LfmUser("wrongnorw", service);
-			user.GetInfo();
-
-			Console.WriteLine($"{user.Name}");
-			Console.WriteLine($"{user.RealName}");
-			Console.WriteLine($"{user.Playcount}");
 
 			user.GetNowPlaying();
-
-			Console.WriteLine($"{user.NowPlaying.Artist.Name} {user.NowPlaying.Name}");
+			user.NowPlaying.GetInfo();
+			Console.WriteLine($"{user.NowPlaying.Artist.Name} {user.NowPlaying.Name} {user.NowPlaying.Length.Minutes} {user.NowPlaying.Length.Seconds}");
 
 			Console.WriteLine();
 			Console.WriteLine("done.");

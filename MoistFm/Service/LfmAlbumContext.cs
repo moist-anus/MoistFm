@@ -38,9 +38,14 @@ namespace MoistFm.Service
 		public LfmAlbum GetInfo()
 		{
 			Method = "album.getinfo";
-
 			ProcessRequest();
-			return AlbumMap.Map(Response.SelectSingleNode("/lfm/album"));
+
+			var album = AlbumMap.Map(Response.SelectSingleNode("/lfm/album"));
+			album.Service = Service;
+			album.Service.AlbumContext.Name = album.Name;
+			album.Service.AlbumContext.Artist = album.Artist.Name;
+
+			return album;
 		}
 	}
 }
