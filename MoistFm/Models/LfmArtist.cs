@@ -76,8 +76,7 @@ namespace MoistFm.Models
 
 		public void GetTopAlbums()
 		{
-			var albums = Service.ArtistContext.GetTopAlbums();
-			TopAlbums = albums;
+			TopAlbums = Service.ArtistContext.GetTopAlbums();
 		}
 	}
 }
