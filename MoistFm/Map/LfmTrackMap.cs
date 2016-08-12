@@ -25,8 +25,6 @@ namespace MoistFm.Map
 			to.Wiki = string.IsNullOrEmpty(from.Wiki.Summary) ? to.Wiki : from.Wiki;
 			to.Date = from.Date == default(DateTime) ? to.Date : from.Date;
 			to.Images = from.Images.Count() == 0 ? to.Images : from.Images;
-
-			to.Service = from.Service;
 		}
 
 		public override LfmTrack Map(XmlNode from)
@@ -48,9 +46,11 @@ namespace MoistFm.Map
 
 			var track = new LfmTrack();
 
-			if (!IsNullOrEmpty(playcountNode) && !IsNullOrEmpty(listenersNode))
+			if (!IsNullOrEmpty(playcountNode) || !IsNullOrEmpty(listenersNode))
 			{
-				track.Stats = new LfmStatsMap().Map(Convert.ToInt32(listenersNode.InnerText), Convert.ToInt32(playcountNode.InnerText));
+				var listeners = IsNullOrEmpty(listenersNode) ? 0 : Convert.ToInt32(listenersNode.InnerText);
+				var playcount = IsNullOrEmpty(playcountNode) ? 0 : Convert.ToInt32(playcountNode.InnerText);
+				track.Stats = new LfmStatsMap().Map(listeners, playcount);
 			}
 
 			track.Name = GetText(nameNode);

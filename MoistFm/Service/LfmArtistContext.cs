@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MoistFm.Map;
@@ -20,7 +21,7 @@ namespace MoistFm.Service
 			: base(service)
 		{ }
 
-		public override string RequestUrl { get { return $"{RequestBase}&artist={Name}"; } }
+		public override string RequestUrl { get { return $"{RequestBase}&artist={WebUtility.UrlEncode(Name)}"; } }
 
 		public string Name { get; set; } = string.Empty;
 
@@ -43,6 +44,7 @@ namespace MoistFm.Service
 			Method = "artist.getinfo";
 
 			ProcessRequest();
+		
 			var artist = ArtistMap.Map(Response.SelectSingleNode("/lfm/artist"));
 			artist.Service = Service;
 			artist.Service.ArtistContext.Name = artist.Name;
@@ -63,7 +65,16 @@ namespace MoistFm.Service
 			Method = "artist.getSimilar";
 
 			ProcessRequest();
-			return ArtistMap.Map(Response.SelectNodes("/lfm/similarartists/artist"));
+			
+			var artists = ArtistMap.Map(Response.SelectNodes("/lfm/similarartists/artist"));
+
+			artists.ToList().ForEach(a =>
+			{
+				a.Service = Service;
+				a.Service.ArtistContext.Name = a.Name;
+			});
+
+			return artists;
 		}
 
 		public IEnumerable<LfmTrack> GetTopTracks()
@@ -79,7 +90,8 @@ namespace MoistFm.Service
 			Method = "artist.getTopAlbums";
 
 			ProcessRequest();
-			return AlbumMap.Map(Response.SelectNodes("/lfm/topalbums/album"));
+			var albums = AlbumMap.Map(Response.SelectNodes("/lfm/topalbums/album"));
+			return albums;
 		}
 	}
 }

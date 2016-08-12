@@ -73,7 +73,7 @@ namespace MoistFm.Models
 
 		public LfmTrack NowPlaying { get; set; } = new LfmTrack();
 
-		private LfmService Service { get; set; }
+		public LfmService Service { get; set; }
 
 		public void GetInfo()
 		{

@@ -45,7 +45,7 @@ namespace MoistFm.Map
 			var bioNode = from.SelectSingleNode("bio");
 
 			var artist = new LfmArtist();
-
+			
 			if (!IsNullOrEmpty(playcountNode)) artist.Playcount = Convert.ToInt32(playcountNode.InnerText);
 			if (!IsNullOrEmpty(mbIdNode)) artist.MbId = new Guid(mbIdNode.InnerText);
 			if (!IsNullOrEmpty(imageNodes)) artist.Images = new LfmImageMap().Map(imageNodes);

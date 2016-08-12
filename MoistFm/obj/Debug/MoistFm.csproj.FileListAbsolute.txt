@@ -2,4 +2,3 @@ C:\git\MoistFm\MoistFm\MoistFm\bin\Debug\MoistFm.dll
 C:\git\MoistFm\MoistFm\MoistFm\bin\Debug\MoistFm.pdb
 C:\git\MoistFm\MoistFm\MoistFm\obj\Debug\MoistFm.dll
 C:\git\MoistFm\MoistFm\MoistFm\obj\Debug\MoistFm.pdb
-C:\git\MoistFm\MoistFm\MoistFm\obj\Debug\MoistFm.csprojResolveAssemblyReference.cache

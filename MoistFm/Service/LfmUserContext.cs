@@ -21,7 +21,7 @@ namespace MoistFm.Service
 			: base(service)
 		{ }
 
-		public override string RequestUrl { get { return $"{RequestBase}&user={Name}"; } }
+		public override string RequestUrl { get { return $"{RequestBase}&user={WebUtility.UrlEncode(Name)}"; } }
 
 		public string Name { get; set; } = string.Empty;
 
@@ -46,7 +46,6 @@ namespace MoistFm.Service
 		public IEnumerable<LfmUser> GetFriends()
 		{
 			Method = "user.getfriends";
-
 			ProcessRequest();
 			return UserMap.Map(Response.SelectNodes("/lfm/friends/user"));
 		}

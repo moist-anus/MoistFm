@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MoistFm.Map;
@@ -21,7 +22,7 @@ namespace MoistFm.Service
 			: base(service)
 		{ }
 
-		public override string RequestUrl { get { return $"{RequestBase}&artist={Artist}&album={Name}"; } }
+		public override string RequestUrl { get { return $"{RequestBase}&artist={WebUtility.UrlEncode(Artist)}&album={WebUtility.UrlEncode(Name)}"; } }
 
 		public string Name { get; set; } = string.Empty;
 
