@@ -31,18 +31,18 @@ namespace MoistFm.Service
 
 		protected void ProcessRequest(string url)
 		{
-				try
-				{
-					var httpWebRequest = WebRequest.Create(url) as HttpWebRequest;
-					var httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse;
-					var response = httpWebResponse.GetResponseStream();
+			try
+			{
+				var httpWebRequest = WebRequest.Create(url) as HttpWebRequest;
+				var httpWebResponse = httpWebRequest.GetResponse() as HttpWebResponse;
+				var response = httpWebResponse.GetResponseStream();
 
-					Response.Load(response);
-				}
-				catch (Exception ex)
-				{
-					throw ex;
-				}
+				Response.Load(response);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
 
 		protected void ProcessRequest()
